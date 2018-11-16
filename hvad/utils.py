@@ -96,7 +96,7 @@ class SmartGetFieldByName(object):
     """
     def __init__(self, real):
         self.real = real
-    
+
     def __call__(self, meta, name):
         assert not isinstance(self.real, SmartGetFieldByName)
         try:

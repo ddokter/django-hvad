@@ -444,9 +444,10 @@ def prepare_translatable_model(sender, **kwargs):
     #    translation aware.
     base_mgr = getattr(model, '_base_manager', None)
     if base_mgr is None or isinstance(base_mgr, TranslationManager):
-        assert django.VERSION < (1, 10)
-        model.add_to_class('_base_manager', Manager())
-
+        #assert django.VERSION < (1, 10)
+        #model.add_to_class('_base_manager', Manager())
+        pass
+    
     # Replace get_field_by_name with one that warns for common mistakes
     if django.VERSION < (1, 9) and not isinstance(model._meta.get_field_by_name, SmartGetFieldByName):
         model._meta.get_field_by_name = MethodType(

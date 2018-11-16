@@ -385,9 +385,10 @@ class TranslationQueryset(QuerySet):
                                      'Use prefetch_related instead.' % query_key)
                 if term.target is None:
                     raise FieldError('Cannot select_related: %s is a regular field' % query_key)
-                if hasattr(term.field.rel, 'through'):
-                    raise FieldError('Cannot select_related: %s can be multiple objects. '
-                                     'Use prefetch_related instead.' % query_key)
+                if hasattr(term.field, 'rel'):
+                    if hasattr(term.field.rel, 'through'):
+                        raise FieldError('Cannot select_related: %s can be multiple objects. '
+                                         'Use prefetch_related instead.' % query_key)
 
                 # If target is a translated model, select its translations
                 target_translations = getattr(term.target._meta, 'translations_accessor', None)
